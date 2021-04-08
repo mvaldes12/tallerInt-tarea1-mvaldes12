@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    {% if error == '429' %}
+        <h2> Excediste el número máximo de request, vuelte a intentarlo mañana </h2>
+    {% else %}
+
+    {% if temp == 0 %}
+        <h2> No se encontró la información solicitada  </h2>
+    {% else %}
+
+    <form  action="/tarea1/busqueda/" method="post">
+        {% csrf_token %}
+        <div align="right">
+            <label for="gsearch">Buscar Personaje:</label>
+            <input type="search" id="gsearch" name="gsearch">
+             <input type="submit" value="Buscar">
+        </div>
+    </form>
+    {% if serie == 'bb' %}
+        <h2> Breaking Bad</h2>
+    {% else %}
+        <h2> Better Call Saul </h2>
+    {% endif %}
+    <h3> Episodios Temporada {{temp}} </h3>
+    <ul>
+        {% for c in cap %}
+        <li><a href="/tarea1/{{serie}}/{{temp}}/{{c.1}}"> Capítulo {{c.1}}: {{c.0}}</a></li>
+        {% endfor %}
+    </ul>
+
+     {% endif %}
+
+    <form action='/tarea1/' method='GET'>
+    <button type='submit'> Volver al Inicio </button>
+    </form>
+
+    {% endif %}
+</body>
+</html>
+
+
+

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    {% if error == '429' %}
+        <h2> Excediste el número máximo de request, vuelte a intentarlo mañana </h2>
+    {% else %}
+
+    <form  action="/tarea1/busqueda/" method="post">
+        {% csrf_token %}
+        <div align="right">
+            <label for="gsearch">Buscar Personaje:</label>
+            <input type="search" id="gsearch" name="gsearch">
+             <input type="submit" value="Buscar">
+        </div>
+    </form>
+    <p> Resultado Busqueda </p>
+    {% if todas == 0 %}
+        <p> No hay resultados para esta búsqueda </p>
+    {% else %}
+
+    <ul>
+        {% for lista in todas %}
+        {% for p in lista %}
+        <li><a href="/tarea1/personajes/{{p.name}}/"> {{p.name}}</a></li>
+        {% endfor %}
+        {% endfor %}
+    </ul>
+
+    {% endif %}
+
+
+    <form action='/tarea1/' method='GET'>
+    <button type='submit'> Volver al Inicio </button>
+    </form>
+
+    {% endif %}
+</body>
+</html>

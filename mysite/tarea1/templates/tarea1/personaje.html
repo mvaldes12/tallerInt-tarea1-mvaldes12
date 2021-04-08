@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    {% if error == '429' %}
+        <h2> Excediste el número máximo de request, vuelte a intentarlo mañana </h2>
+    {% else %}
+
+    {% if personaje == 0 %}
+        <h2> No se encontró la información solicitada  </h2>
+    {% else %}
+    <form  action="/tarea1/busqueda/" method="post">
+        {% csrf_token %}
+        <div align="right">
+            <label for="gsearch">Buscar Personaje:</label>
+            <input type="search" id="gsearch" name="gsearch">
+             <input type="submit" value="Buscar">
+        </div>
+    </form>
+    <h3> {{ personaje.0.name }} </h3>
+    <img src="{{ personaje.0.img }} "  width="150px" alt="img" >
+    <p> Nickname: {{personaje.0.nickname }}</p>
+    <p> Roles: </p>
+    <ul>
+        {% for r in personaje.0.occupation %}
+        <li> {{ r }} </li>
+        {% endfor %}
+    </ul>
+    <p> Actor/Actriz: {{personaje.0.portrayed }}</p>
+    <p> Estado: {{personaje.0.status }}</p>
+    <p> Categoría: {{personaje.0.category }}</p>
+    <p> Temporadas Breaking Bad:</p>
+    {% if personaje.0.appearance %}
+        <ul>
+            {% for t in personaje.0.appearance %}
+            <li><a href="/tarea1/bb/{{t}}/">Temporada {{t}}</a></li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <ul> <li> N/A </li> </ul>
+    {% endif %}
+
+    <p> Temporadas Better Call Saul:</p>
+    {% if personaje.0.better_call_saul_appearance %}
+        <ul>
+            {% for t in personaje.0.better_call_saul_appearance %}
+            <li><a href="/tarea1/bcs/{{t}}/">Temporada {{t}}</a></li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <ul> <li> N/A </li> </ul>
+    {% endif %}
+
+    <p> Citas: </p>
+    {% if citas %}
+        <ul>
+            {% for c in citas  %}
+            <li> {{ c.quote }} </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <ul> <li> N/A </li> </ul>
+    {% endif %}
+
+
+    {% endif %}
+
+    <form action='/tarea1/' method='GET'>
+    <button type='submit'> Volver al Inicio </button>
+    </form>
+
+    {% endif %}
+
+</body>
+</html>
