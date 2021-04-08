@@ -1,0 +1,1 @@
+web: gunicorn ./mysite/tarea1.wsgi
